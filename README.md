@@ -125,3 +125,29 @@ mkdir -p app/api/posts && touch app/api/posts/route.ts
 ```bash
 mkdir -p components/posts && touch components/posts/PostForm.tsx components/posts/PostTable.tsx
 ```
+
+# Deployment di Vercel via GitHub
+
+- bukan [vercel](https://vercel.com)
+- buat akun bila belum punya akun vercel
+- edit file [package.json](/package.json) pada bagian scripts:
+
+```json
+"scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "postinstall": "prisma generate --no-engine",
+    "start": "next start",
+    "lint": "next lint"
+  },
+```
+
+- buka [GitHub](https://github.com)
+- buat akun bila belum punya akun github
+- buat repository baru
+- push code ke github
+- buka [Vercel](https://vercel.com) kembali
+- klik "Import Project"
+- pilih repository yang sudah dibuat
+- pada kolom "Environment Variables" tambahkan variabel dari [env](/env)
+- klik "Deploy"

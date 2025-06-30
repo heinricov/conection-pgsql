@@ -114,6 +114,12 @@ touch lib/prisma.ts
 
 # Menggunakan Koneksi dari database ke Frontend
 
+- buat file API [route.ts](/app/api/posts/route.ts)
+
+```bash
+mkdir -p app/api/posts && touch app/api/posts/route.ts
+```
+
 - buat file [PostForm.tsx](/components/posts/PostForm.tsx) & [PostTable.tsx](/components/posts/PostTable.tsx) untuk mengirim & menerima data dari database
 
 ```bash

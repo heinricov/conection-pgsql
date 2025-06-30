@@ -22,15 +22,25 @@ export default function Home() {
 
   return (
     <main className="min-h-screen py-8 px-4">
-      <div className="max-w-6xl mx-auto space-y-8">
-        <h1 className="text-3xl font-bold text-center">Aplikasi Postingan</h1>
+      <div className="max-w-7xl mx-auto space-y-8">
+        <h1 className="text-3xl font-bold text-center mb-8">
+          NextJS + PostgreSQL via Prisma
+        </h1>
 
-        <div className="flex flex-col items-center">
-          <PostForm onPostCreated={handlePostCreated} />
-        </div>
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* Form Section - Kiri */}
+          <div className="w-full lg:w-1/3">
+            <div className="sticky top-8">
+              <h2 className="text-xl font-semibold mb-4">Tambah Post Baru</h2>
+              <PostForm onPostCreated={handlePostCreated} />
+            </div>
+          </div>
 
-        <div className="flex flex-col items-center mt-8">
-          <PostTable key={refreshKey} />
+          {/* Table Section - Kanan */}
+          <div className="w-full lg:w-2/3">
+            <h2 className="text-xl font-semibold mb-4">Daftar Post</h2>
+            <PostTable key={refreshKey} />
+          </div>
         </div>
       </div>
 

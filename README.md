@@ -1,36 +1,121 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Installation
 
-## Getting Started
-
-First, run the development server:
+- NextJS
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npx create-next-app@latest
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Shadcn/ui
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npx shadcn@latest init
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- ui components yang dibutuhkan
 
-## Learn More
+```bash
+npx shadcn@latest add button card input label tetxtarea sonner label
+```
 
-To learn more about Next.js, take a look at the following resources:
+- Dark mode
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm install next-themes
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- buat file [theme-provider.tsx](/components/providers/theme-provider.tsx)
 
-## Deploy on Vercel
+```bash
+mkdir -p components/providers && touch components/providers/theme-provider.tsx
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- bungkus [layout.tsx](/app/layout.tsx) dengan [theme-provider.tsx](/components/providers/theme-provider.tsx)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```typescript
+import { ThemeProvider } from "@/components/providers/theme-provider";
+```
+
+```typescript
+<html lang="en" suppressHydrationWarning>
+<head />
+```
+
+```typescript
+<ThemeProvider
+  attribute="class"
+  defaultTheme="system"
+  enableSystem
+  disableTransitionOnChange
+>
+  {children}
+</ThemeProvider>
+```
+
+### Install Prisma
+
+```bash
+npm install prisma tsx --save-dev
+```
+
+```bash
+npm install @prisma/extension-accelerate @prisma/client
+```
+
+```bash
+npx prisma init --db --output ../app/generated/prisma
+```
+
+```bash
+- pilih region up-southeast-1 - Asia Pacific (Singapore)
+- enter a project name: nama-database-anda
+```
+
+- perintah npx prisma init --db --output ../app/generated/prisma akan menghasilkan :
+
+```bash
+- prisma/schema.prisma
+- prisma database
+- .env (didalam ada DATABASE_URL)
+```
+
+# Setup Database
+
+- edit file [schema.prisma](/prisma/schema.prisma) contoh:
+
+```typescript
+model Posts {
+  id    String @id @default(cuid())
+  title String
+  content  String
+}
+
+```
+
+- jalankan perintah berikut untuk membuat migration:
+
+```bash
+npx prisma migrate dev --name init
+```
+
+- perintah diatas akan membuat file migration di folder [migrations](/prisma/migrations)
+
+- periksa table di database :
+
+```bash
+npx prisma studio
+```
+
+- buat file [prisma.ts](/lib/prisma.ts) untuk membuat instance prisma client
+
+```bash
+touch lib/prisma.ts
+```
+
+# Menggunakan Koneksi dari database ke Frontend
+
+- buat file [PostForm.tsx](/components/posts/PostForm.tsx) & [PostTable.tsx](/components/posts/PostTable.tsx) untuk mengirim & menerima data dari database
+
+```bash
+mkdir -p components/posts && touch components/posts/PostForm.tsx components/posts/PostTable.tsx
+```
